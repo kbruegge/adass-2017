@@ -1,21 +1,12 @@
 \input{header.tex}
 
-\title{Real Time Streaming Analysis of IACT Data}
-\author{Kai Brügge \large{for the FACT-Collaboration}}
+\title{Distributed real-time data stream analysis for CTA}
+\author{Kai Brügge and Alexey Egorov}
 \newfontfamily{\firathin}{fira sans thin}
 \usetikzlibrary{calc}
 \usetikzlibrary{shadows.blur}
 
 \begin{document}%
-
-% nix abstract
-% \begin{columns}[onlytextwidth]%
-%   \begin{column}{\textwidth}%
-%     \begin{block}
-%       \blindtext[2]
-%     \end{block}
-%   \end{column}%
-% \end{columns}%
 
 \begin{multicols}{2}
     \begin{block}[equal height group=B]{CTA - The Cherenkov Telescope Array}%
@@ -35,98 +26,72 @@
       \end{multicols}
     \end{block}%
 
-    \begin{block}[equal height group=B]{Real Time Requirements of CTA}%
+    \begin{block}[equal height group=A]{Monitoring the Gamma-Ray SKY}%
       \begin{multicols}{2}
         \begin{figure}
-          \includegraphics[width=\linewidth]{images/cta.png}\\
-          % \caption{The FACT Telescope during a calibration procedure \cite{fact-performance}}
-        \end{figure}
-        \columnbreak
-          The \texttt{streams-framework} is a data streaming environment written in Java.
-          The purpose of the streams-framework is to provide an abstract way to model the data flow of an application.
-          It comes with a number of fundamental building blocks to define a data flow graph using an Extensible Markup Language (XML) based description.
-          The FACT-Tools are a collection of tools build on top of the \texttt{streams-framework} which reduce FACT raw data into image parameters that
-          can be used for supervised machine learning methods.
-      \end{multicols}
-    \end{block}%
-
-
-    \begin{block}[equal height group=A]{Multivariate Signal/Background Seperation}%
-      \begin{multicols}{2}
-        \begin{figure}
-          \includegraphics[width=\linewidth]{figures/angular_resolution.pdf}\\
+          \includegraphics[width=\linewidth]{figures/fermi.pdf}\\
           % \caption{Toller Plot.\cite{fact-performance}}
         \end{figure}
         \columnbreak
-        Supervised machine learning is used to seperate signal events from background.
-        Simulated, labeled, data is used to train the models.
-        A RandomForest classifier with \num{150} trees is
-        used as a model for the Real Time Analysis presented here. A total of \num{52} features are used
-        while training the model. All are calculated using the FACT-Tools.
-        The popular Python machine learning library scikit-learn is used to train and then
-        store the models into the PMML format. This way the stored model can be shared
-        between programming languages and applied to the data stream from the telescope.
-
-        % Data handling is performed by the Pandas library [28], using data frames inspired by the R programming language.
-        % Visualizations are created by the Matplotlib [22] Python library.
-
-
+        One of CTA's main goals is monitoring the sky for transient events. These include Gamma-Ray Burst (GRBs) events and
+        Active Galactic Nuclei (AGNs).
+        GRBs are believed to occur on massive merge events or star collapses.
+        These events can show variable behavior in terms of both total brightness and spectral properties.
+        To gain more understanding about the physics behind GRBs and AGN it is vital to perform multi-wavelengths observations.
+        In case a sudden increase in  flux is detected CTA can alert other experiments to trigger observations in other wavelengths bands.
+        The figure to the left shows all localized GRB events as triggered by the FERMI satellite.
       \end{multicols}
     \end{block}%
-
-    \begin{block}[equal height group=A]{Multivariate Energy Estimation}%
-      \begin{multicols}{2}
-        \begin{figure}
-          \includegraphics[width=\linewidth]{figures/impact_estimator.pdf}\\
-          % \caption{Toller Plot.\cite{fact-performance}}
-        \end{figure}
-        \columnbreak
-        Online energy estimation for the Real Time Analysis works in a similar fashion to the online separation.
-        A Random Forest regressor with \num{150} trees is used to estimate the event energy.
-        The regressor is trained on the same set of variables as the separator.
-        Using no additional cuts the leads to an energy resolution which is on par with more complicated
-        offline methods. Both the bias and the resolution of the estimator are strongly dependent on the simulated energy.
-        Low energy showers create smaller images in the camera since they do not emit as much Cherenkov radiation as their high energy counterparts.
-      \end{multicols}
-    \end{block}%
-
-    % \begin{alertblock}[equal height group=A]{Test}%
+    %
+    % \begin{block}[equal height group=B]{\stf}%
     %   \begin{multicols}{2}
-    %     \blindtext\cite{fact-reference}
-    %     \blindtext
+    %     \begin{figure}
+    %       \includegraphics[width=\linewidth]{images/cta.png}\\
+    %       % \caption{The FACT Telescope during a calibration procedure \cite{fact-performance}}
+    %     \end{figure}
+    %     \columnbreak
+    %       The \stf is a data streaming environment written in Java.
+    %       The purpose of the streams-framework is to provide an abstract way to model the data flow of an application.
+    %       It comes with a number of fundamental building blocks to define a data flow graph using an Extensible Markup Language (XML) based description.
+    %       Programms written within the \stf can be executed on distributed computing engines such as Apache Storm, Flink and Spark.
     %   \end{multicols}
-    % \end{alertblock}%
+    % \end{block}%
 
 
-
-
-
-    % \begin{alertblock}[equal height group=A]{Test}%
-    %   \begin{multicols}{2}
-    %     \blindtext\cite{fact-reference}
-    %     \blindtext
-    %   \end{multicols}
-    % \end{alertblock}%
-
-
-
-
-    \begin{block}[equal height group=A]{Monitoring Gamma-Ray Sources}%
+    \begin{block}[equal height group=A]{Classification and Regression}%
       \begin{multicols}{2}
         \begin{figure}
-          \includegraphics[width=\linewidth]{figures/angular_resolution_vs_energy.pdf}\\
+          \includegraphics[width=\linewidth]{figures/ml_performance_multi_telescope_auc.pdf}\\
           % \caption{Toller Plot.\cite{fact-performance}}
         \end{figure}
         \columnbreak
-        One of FACT’s main goals is the long-term monitoring of bright AGN type gamma ray sources.
-        These sources can show variable behavior in terms of both total brightness and spectral properties.
-        IACTs record so-called light curves which show the gamma ray  flux versus time.
-        In case a source shows a sudden increase in  flux, it is considered to be in a flaring state.
-        In case a  flare is detected, FACT can alert other experiments to trigger multi-wavelengths observations.
-        The figure to the left shows excess rates of the AGN Markarian 421 over time.
-        A flare on the 25th of June is clearly visible.
+
+        Supervised machine learning is used to separate signal from background and to estimate
+        the energy of a recorded event. Features for classification/regression are calculated from raw input
+        images.
+        Simulated, labeled, data is used to train the models using the Python machine learning library scikit-learn\cite{sklearn}.
+        The trained scikit-learn models are converted into the PMML\cite{pmml} format using the sklearn2pmml\cite{sklearn2pmml} library.
+        This way the stored model can be shared
+        between programming languages and applied to the data stream from the telescopes.
       \end{multicols}
     \end{block}%
+
+    \begin{block}[equal height group=A]{Framework Comparisons}%
+      \begin{multicols}{2}
+        \begin{figure}
+          \includegraphics[width=\linewidth]{figures/runtime.png}\\
+          % \caption{Toller Plot.\cite{fact-performance}}
+        \end{figure}
+        \columnbreak
+        At the time of writing we that the streaming capabilities of the Apache Spark framework lack proper support and documentation
+        which is why we concentrated on Storm and Flink. We compare the runtime of Storm, Flink and the streams-framework in a local setup on a single
+        core to measure the impact of the overhead these frameworks produce. The results can be seen on the image on the left.
+        There is no clear preference between Storm and Flink when it comes to runtime overhead. We chose to continue our experiments on
+        Apache Flink due to easier setup, better visualization tools and a more comfortable abstraction compared to the rather low-level
+        API of Apache Storm.
+      \end{multicols}
+    \end{block}%
+
 
 % ------------------Next columns -----------------
 % ------------------------------------------------
@@ -134,140 +99,92 @@
 
         \begin{center}
 
-        \begin{streamblock}[equal height group=C, width=0.6\linewidth]{0mm}{-5mm}{}%
+        \begin{streamblock}[equal height group=C, width=0.8\linewidth]{0mm}{-5mm}{}%
           \begin{multicols}{2}
             \begin{figure}
-              \includegraphics[width=\linewidth]{images/cta.png}
+              \includegraphics[width=\linewidth]{figures/image.pdf}
             \end{figure}
             \columnbreak
-            The telescope emits \num{50} events per second on average. This leads to a mean data rate of \SI{43.2}{\mega \byte} per second and up to
-            \SI{1}{\tera \byte} of collected raw data per night.
+            Images from all telescopes in the array get collected into a central trigger where images belonging together are merged into so called events.
+            This way each image gets a unique event id.
+            CTA emits up to \num{15 000} events per second\cite{trigger}.
           \end{multicols}
         \end{streamblock}%
 
-        \begin{streamblock}[equal height group=C, width=0.6\linewidth]{-5mm}{-5mm}{}%
-          \begin{multicols}{2}
-            \begin{figure}
-              \includegraphics[width=\linewidth]{figures/theta.pdf}
-            \end{figure}
-            \columnbreak
-            Calibration data is applied to the data stream to convert raw sensor output to physical units. This is the most time consuming step and
-            is paralellized to several CPUs.
-          \end{multicols}
+        \begin{streamblock}[height=2cm, width=0.8\linewidth]{-5mm}{-5mm}{}%
+          \begin{center}
+            Distribute images Images throughout cluster
+          \end{center}
         \end{streamblock}%
 
-        \begin{streamblock}[equal height group=C, width=0.6\linewidth]{-5mm}{-5mm}{}%
-          \begin{multicols}{2}
-            \begin{figure}
-              \includegraphics[width=\linewidth]{figures/crab_efficiency.pdf}
-            \end{figure}
-            \columnbreak
-              The number of photons and their respective arrival times are extracted from the raw data. Camera pixels not containing
-              any cherenkov photons are dropped.
-          \end{multicols}
-        \end{streamblock}%
-
-        \begin{streamblock}[equal height group=C, width=0.6\linewidth]{-5mm}{-5mm}{}%
-          \begin{multicols}{2}
-            \begin{footnotesize}
-            \begin{figure}
-              \begin{tikzpicture}[
-                  sibling distance= 5em,
-                  level distance  = 3em,
-                  % edge from parent/.style = {draw,},
-                  text centered,
-                  every node/.style = {shape=rectangle, sharp corners, draw, align=center, minimum size=1cm, text width=2cm}
-                ]
-              \node {Width}
-                child { node {Length} }
-                child { node {Size}
-                  child { node {Arrival}
-                      child { node {Delta} }
-                      child { node {Alpha} }
-                    }
-                  };
-              \end{tikzpicture}
-            \end{figure}
-          \end{footnotesize}
-            \columnbreak
-            Multivariate models trained on simulated data are applied to the data stream online. Energy estimation and
-            background suppression is performed to label the data coming from the telescope.
-          \end{multicols}
-        \end{streamblock}%
-
-
-        \begin{streamblock}[equal height group=C, width=0.6\linewidth]{-5mm}{0mm}{}%
+        \begin{streamblock}[equal height group=C, width=0.8\linewidth]{-5mm}{-5mm}{}%
           \begin{multicols}{2}
             \rowcolors{2}{gray!25}{white}
             {\color{maincolor}
-            \begin{tabularx}{\linewidth}{cXc}
+            \begin{tabularx}{\linewidth}{cccc}
               \rowcolor{gray!50}
-                \textbf{Length} & \textbf{Energy} & \textbf{Label} \\
-                30 & 2   TeV & $g$   \\
-                15 & 200 GeV & $p$  \\
-                29 & 450 GeV & $p$  \\
-                40 & 900 GeV & $g$ \\
-                35 & 10 GeV & $g$ \\
-                10 & 13 GeV & $p$
+                \textbf{Length} \textbf{Width} & \textbf{Size} & \textbf{EventID} \\
+                30 & 15   & 100   & 1\\
+                40 & 10  & 200  & 1\\
+                29 & 25  & 75  & 1\\
+                40 & 30  & 500 & 3\\
+                5 & 2  & 12 & 5\\
+                20 & 13  & 84 & 3
             \end{tabularx}
             }
 
             \columnbreak
+            Each image in the event has to be converted into feature representation before classification and regression.
+            Due to the parallel nature of the processing, the processed images do not necessarily retain their order.
+            At this stage per-telescope operations can be applied.
 
-            Results of the analysis are stored on-site in \texttt{fits} files and into an SQL Database.
-            A webserver provides public access to high-level results in real time.
           \end{multicols}
         \end{streamblock}%
 
-        \vspace{5cm}
-        \tikz[]{
-          \node[anchor=north]{\includegraphics[width=0.6\linewidth]{images/cta.png}};
-          % \node[scope fading=south, anchor=north]{\includegraphics[width=0.6\linewidth]{images/website.png}};
+        \begin{streamblock}[equal height group=C, width=0.8\linewidth]{-5mm}{-5mm}{}%
+          \begin{multicols}{2}
+            \begin{figure}
+              \includegraphics[width=\linewidth]{figures/ml_performance_auc_per_telescope.pdf}
+            \end{figure}
+            \columnbreak
 
-        }
+            At this stage the pre-trained machine learning models can be applied since they
+            have been trained on single telescpe data. The plot on th eleft shows the performance
+            of background suppression for the single telescopes
+
+          \end{multicols}
+        \end{streamblock}%
+
+
+        \begin{streamblock}[height=2cm, width=0.8\linewidth]{-5mm}{-5mm}{}%
+          \begin{center}
+            Collect results belonging to the same event using a fixed time window.
+          \end{center}
+        \end{streamblock}%
+
+        \begin{streamblock}[equal height group=C, width=0.8\linewidth]{-5mm}{-5mm}{}%
+          \begin{multicols}{2}
+            \begin{figure}
+              \includegraphics[width=\linewidth]{figures/angular_resolution_vs_energy.pdf}
+            \end{figure}
+            \columnbreak
+            The direction of the air shower is reconstructed from the features calculated in the previous step.
+            The plot on the left shows the angular resolution of the reconstruction for different energy bands.
+          \end{multicols}
+        \end{streamblock}%
+
+        \begin{streamblock}[equal height group=C, width=0.8\linewidth]{-5mm}{-5mm}{}%
+          \begin{multicols}{2}
+            \begin{figure}
+              \includegraphics[width=\linewidth]{figures/ml_performance_multi_telescope_auc.pdf}
+            \end{figure}
+            \columnbreak
+            Predictions for the single telescopes are averaged to get a better predictor.
+            The plot on the left shows the area under the reciever operating characteristic.
+          \end{multicols}
+        \end{streamblock}%
 
       \end{center}
-
-
-
-
-
-% \begin{tikzpicture}[overlay, shift={(60 cm, 75 cm)}, anchor=north west]
-%       \definecolor{sourceGreen}{HTML}{77cc5a}
-%       \definecolor{sinkRed}{HTML}{c45858}
-%
-%       \pgfmathsetmacro{\scale}{2};
-%       \pgfmathsetmacro{\sourceWidth}{5*\scale};
-%       \pgfmathsetmacro{\sourceHeight}{5*\scale};
-%       \pgfmathsetmacro{\cubeSize}{3*\scale};
-%       \pgfmathsetmacro{\circleSize}{1*\scale};
-%       \pgfmathsetmacro{\textShift}{2.5*\scale};
-%
-%       \tikzset{every node/.style={rectangle, draw=black!80,fill=gray, text=white, rounded corners=0.5pt, ultra thin, font=\fontsize{36}{36}\firathin,},
-%                     processorshape/.style={minimum width=\sourceHeight cm,minimum height=\cubeSize cm},
-%                     queueshape/.style={minimum width=\cubeSize cm,minimum height=\cubeSize cm },
-%                     sink_anchor/.style = {circle, draw=sinkRed, fill=sinkRed, minimum size=\circleSize cm, line width = 0.1cm,
-%                                                             blur shadow={shadow xshift=-0.07cm, shadow yshift=-0.07cm}
-%                                                         },
-%                     }
-%
-%
-%       \node[processorshape] (processor_1) at (0, 0) {Processor};
-%
-%       \node[processorshape] (processor_2) at (0, -10) {Processor};
-%
-%       \node[processorshape] (processor_3) at (0, -20) {Processor};
-%
-%
-%       % \draw node[vertex] (Joint) at (1,0) {};
-%
-%       \draw[-,draw=gray] (processor_1) to (processor_2);
-%       \draw[-,draw=gray] (processor_2) to (processor_3);
-%
-%       % \node[source_anchor](anchor_1) at (1.8,-1){};
-%     \end{tikzpicture}
-
-
 
 \end{multicols}
 

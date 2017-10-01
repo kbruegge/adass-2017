@@ -27,7 +27,8 @@
 \RequirePackage{xcolor}
 %% color definitions %%
 \definecolor{maincolor}{RGB}{024,024, 024}
-\definecolor{blockBackgroundColor}{RGB}{249,249, 249}
+\definecolor{blockBackgroundColor}{RGB}{245,245, 245}
+
 % \colorlet{blockBackgroundColor}{white}
 \colorlet{textColor}{maincolor}
 \colorlet{titleTextColor}{maincolor}
@@ -82,6 +83,37 @@
   #1,
 }
 
+\newtcolorbox{intermediateblock}[3][]{
+  enhanced,
+  interior hidden,
+  leftright skip=5mm,
+  before skip=3mm,
+  after skip=3mm,
+  % boxrule=2pt,
+  % show bounding box,
+  boxsep=5mm,
+  sharp corners,
+  detach title,
+  fontupper=\color{maincolor},
+  % before upper={\tcbtitle\quad}],
+  frame code={
+  \path [tcb fill frame]
+    (frame.south west) --
+    (frame.north west) --
+    ([xshift=-5mm]frame.north) --
+    ([yshift=#2]frame.north) --
+    ([xshift=5mm]frame.north) --
+    (frame.north east) --
+    (frame.south east) --
+    (frame.south east) --
+    ([xshift=5mm]frame.south) --
+    ([yshift=#3]frame.south) --
+    ([xshift=-5mm]frame.south) --
+    cycle;
+  },
+  #1,
+}
+
 \newtcolorbox{streamblock}[3][]{
   enhanced,
   interior hidden,
@@ -112,6 +144,42 @@
   },
   #1,
 }
+%
+% \newtcolorbox{intermediateblock}[3][]{
+%   enhanced,
+%   interior hidden,
+%   leftright skip=5mm,
+%   before skip=3mm,
+%   after skip=3mm,
+%   boxrule=2pt,
+%   % show bounding box,
+%   boxsep=5mm,
+%   sharp corners,
+%   detach title,
+%   fontupper=\color{maincolor},
+%   \tcbset{%
+%     colback=\color{white},
+%     colframe=\color{gray},
+%   }%
+
+%   % before upper={\tcbtitle\quad}],
+%   frame code={
+%   \path [tcb fill frame]
+%     (frame.south west) --
+%     (frame.north west) --
+%     ([xshift=-5mm]frame.north) --
+%     ([yshift=#2]frame.north) --
+%     ([xshift=5mm]frame.north) --
+%     (frame.north east) --
+%     (frame.south east) --
+%     (frame.south east) --
+%     ([xshift=5mm]frame.south) --
+%     ([yshift=#3]frame.south) --
+%     ([xshift=-5mm]frame.south) --
+%     cycle;
+%   },
+%   #1,
+% }
 
 \RenewDocumentEnvironment{block}{O{} g}{%
   \usebeamercolor{block body}%
