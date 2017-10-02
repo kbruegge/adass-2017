@@ -1,3 +1,7 @@
+poster/figures
+data/predictions_rta_gammas_test_sample.csv
+data/predictions_rta_protons_test_sample.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

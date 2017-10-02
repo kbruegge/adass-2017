@@ -17,5 +17,6 @@ def main(input_file, output_file):
     plt.ylabel('y position in meters')
     plt.savefig(output_file)
 
+
 if __name__ == "__main__":
     main()
