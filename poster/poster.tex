@@ -9,7 +9,7 @@
 \begin{document}%
 
 \begin{multicols}{2}
-    \begin{block}[equal height group=B]{CTA - The Cherenkov Telescope Array}%
+    \begin{block}[]{CTA - The Cherenkov Telescope Array}%
       \begin{multicols}{2}
         \begin{figure}
           \includegraphics[width=\linewidth]{images/cta.png}\\
@@ -26,7 +26,7 @@
       \end{multicols}
     \end{block}%
 
-    \begin{block}[equal height group=A]{Monitoring the Gamma-Ray SKY}%
+    \begin{block}[]{Monitoring the Gamma-Ray Sky}%
       \begin{multicols}{2}
         \begin{figure}
           \includegraphics[width=\linewidth]{figures/fermi.pdf}\\
@@ -35,11 +35,9 @@
         \columnbreak
         One of CTA's main goals is monitoring the sky for transient events. These include Gamma-Ray Burst (GRBs) events and
         Active Galactic Nuclei (AGNs).
-        GRBs are believed to occur on massive merge events or star collapses.
-        These events can show variable behavior in terms of both total brightness and spectral properties.
         To gain more understanding about the physics behind GRBs and AGN it is vital to perform multi-wavelengths observations.
-        In case a sudden increase in  flux is detected CTA can alert other experiments to trigger observations in other wavelengths bands.
-        The figure to the left shows all localized GRB events as triggered by the FERMI satellite.
+        In case a GRB is detected,  CTA can alert other experiments to trigger observations in other wavelengths bands.
+        The figure to the left shows all GRB events collected during 6 years of operation of the Fermi satellite\cite{fermi}.
       \end{multicols}
     \end{block}%
     %
@@ -58,14 +56,12 @@
     % \end{block}%
 
 
-    \begin{block}[equal height group=A]{Classification and Regression}%
+    \begin{block}[]{Classification and Regression}%
       \begin{multicols}{2}
         \begin{figure}
-          \includegraphics[width=\linewidth]{figures/ml_performance_multi_telescope_auc.pdf}\\
-          % \caption{Toller Plot.\cite{fact-performance}}
+          \includegraphics[width=0.9\linewidth]{logos/sklearn.png}\\
         \end{figure}
         \columnbreak
-
         Supervised machine learning is used to separate signal from background and to estimate
         the energy of a recorded event. Features for classification/regression are calculated from raw input
         images.
@@ -76,10 +72,10 @@
       \end{multicols}
     \end{block}%
 
-    \begin{block}[equal height group=A]{Framework Comparisons}%
+    \begin{block}[]{Framework Comparisons}%
       \begin{multicols}{2}
         \begin{figure}
-          \includegraphics[width=\linewidth]{figures/runtime.png}\\
+          \includegraphics[width=\linewidth]{images/alf.jpg}\\
           % \caption{Toller Plot.\cite{fact-performance}}
         \end{figure}
         \columnbreak
@@ -89,6 +85,22 @@
         There is no clear preference between Storm and Flink when it comes to runtime overhead. We chose to continue our experiments on
         Apache Flink due to easier setup, better visualization tools and a more comfortable abstraction compared to the rather low-level
         API of Apache Storm.
+      \end{multicols}
+    \end{block}%
+
+    \begin{block}[]{Runtime Measurements}%
+      \begin{multicols}{2}
+        \begin{figure}
+          \includegraphics[width=\linewidth]{figures/runtime.pdf}\\
+          % \caption{Toller Plot.\cite{fact-performance}}
+        \end{figure}
+        \columnbreak
+          The figure on the left shows the number of events per second versus the number of used CPU cores.
+          This test was executed on a machine with 24 physical CPU cores and 128 Gigabytes of RAM.
+          The datarate goes up to \num{18000} events per second. The expected eventrate of CTA is between
+          \num{10000} and \num{20000} events per second depending on deployment.
+          This shows that it will be possible to completely analyse CTA data with only a few of computers.
+          Frameworks like Apache Flink make distributing the workload over many computers easy and maintanable.
       \end{multicols}
     \end{block}%
 
@@ -102,7 +114,7 @@
         \begin{streamblock}[equal height group=C, width=0.8\linewidth]{0mm}{-5mm}{}%
           \begin{multicols}{2}
             \begin{figure}
-              \includegraphics[width=\linewidth]{figures/image.pdf}
+              \includegraphics[width=\linewidth]{figures/trigger.pdf}
             \end{figure}
             \columnbreak
             Images from all telescopes in the array get collected into a central trigger where images belonging together are merged into so called events.
@@ -111,27 +123,30 @@
           \end{multicols}
         \end{streamblock}%
 
-        \begin{streamblock}[height=2cm, width=0.8\linewidth]{-5mm}{-5mm}{}%
+        \begin{streamblock}[colframe=white!60!black, height=2.1cm, width=0.8\linewidth]{-5mm}{0mm}{}%
           \begin{center}
-            Distribute images Images throughout cluster
+            Distribute images throughout cluster.
           \end{center}
         \end{streamblock}%
 
-        \begin{streamblock}[equal height group=C, width=0.8\linewidth]{-5mm}{-5mm}{}%
+        \begin{streamblock}[equal height group=C, width=0.8\linewidth]{0mm}{-5mm}{}%
           \begin{multicols}{2}
-            \rowcolors{2}{gray!25}{white}
-            {\color{maincolor}
-            \begin{tabularx}{\linewidth}{cccc}
-              \rowcolor{gray!50}
-                \textbf{Length} \textbf{Width} & \textbf{Size} & \textbf{EventID} \\
-                30 & 15   & 100   & 1\\
-                40 & 10  & 200  & 1\\
-                29 & 25  & 75  & 1\\
-                40 & 30  & 500 & 3\\
-                5 & 2  & 12 & 5\\
-                20 & 13  & 84 & 3
-            \end{tabularx}
-            }
+            % \rowcolors{2}{gray!25}{white}
+            % {\color{maincolor}
+            % \begin{tabularx}{\linewidth}{cccc}
+            %   \rowcolor{gray!50}
+            %     \textbf{Length} & \textbf{Width} & \textbf{Size} & \textbf{EventID} \\
+            %     30 & 15   & 100   & 1\\
+            %     40 & 10  & 200  & 1\\
+            %     29 & 25  & 75  & 1\\
+            %     40 & 30  & 500 & 3\\
+            %     5 & 2  & 12 & 5\\
+            %     20 & 13  & 84 & 3
+            % \end{tabularx}
+            % }
+            \begin{figure}
+              \includegraphics[width=\linewidth]{figures/image.pdf}
+            \end{figure}
 
             \columnbreak
             Each image in the event has to be converted into feature representation before classification and regression.
@@ -144,7 +159,7 @@
         \begin{streamblock}[equal height group=C, width=0.8\linewidth]{-5mm}{-5mm}{}%
           \begin{multicols}{2}
             \begin{figure}
-              \includegraphics[width=\linewidth]{figures/ml_performance_auc_per_telescope.pdf}
+              \includegraphics[width=\linewidth]{figures/auc_type.pdf}
             \end{figure}
             \columnbreak
 
@@ -156,33 +171,59 @@
         \end{streamblock}%
 
 
-        \begin{streamblock}[height=2cm, width=0.8\linewidth]{-5mm}{-5mm}{}%
+        \begin{streamblock}[height=2.1cm, colframe=white!60!black,, width=0.8\linewidth]{-5mm}{0}{}%
           \begin{center}
-            Collect results belonging to the same event using a fixed time window.
+            Collect results from an event using a fixed time window.
           \end{center}
         \end{streamblock}%
 
-        \begin{streamblock}[equal height group=C, width=0.8\linewidth]{-5mm}{-5mm}{}%
+        \begin{streamblock}[equal height group=C, width=0.8\linewidth]{0mm}{-5mm}{}%
           \begin{multicols}{2}
             \begin{figure}
-              \includegraphics[width=\linewidth]{figures/angular_resolution_vs_energy.pdf}
-            \end{figure}
-            \columnbreak
-            The direction of the air shower is reconstructed from the features calculated in the previous step.
-            The plot on the left shows the angular resolution of the reconstruction for different energy bands.
-          \end{multicols}
-        \end{streamblock}%
-
-        \begin{streamblock}[equal height group=C, width=0.8\linewidth]{-5mm}{-5mm}{}%
-          \begin{multicols}{2}
-            \begin{figure}
-              \includegraphics[width=\linewidth]{figures/ml_performance_multi_telescope_auc.pdf}
+              \includegraphics[width=\linewidth]{figures/total_auc.pdf}
             \end{figure}
             \columnbreak
             Predictions for the single telescopes are averaged to get a better predictor.
             The plot on the left shows the area under the reciever operating characteristic.
+            Compared to the single telescope prediction it improves background rejection significantly.
           \end{multicols}
         \end{streamblock}%
+
+        \begin{streamblock}[equal height group=C, width=0.8\linewidth]{-5mm}{-5mm}{}%
+          \begin{multicols}{2}
+            \begin{figure}
+              \includegraphics[width=\linewidth]{figures/resolution.pdf}
+            \end{figure}
+            \columnbreak
+            The direction of the air shower is reconstructed from the features calculated in the previous step.
+            The plot on the left shows the angular resolution of the reconstruction for different energy bands.
+            As expected the error on the reconstruction decreases for brighter events.
+          \end{multicols}
+        \end{streamblock}%
+
+        \begin{streamblock}[equal height group=C, width=0.8\linewidth]{-5mm}{0}{}%
+          \begin{multicols}{2}
+            \begin{figure}
+              \includegraphics[width=\linewidth]{figures/skymap.pdf}
+            \end{figure}
+            \columnbreak
+            At this point the reconstructed gamma-ray events can be used for analysis.
+            The reconstructed events can be collected into a histogram of sky coordinates.
+            The image on the left shows a skymap for a simulated gamma-ray source.
+          \end{multicols}
+        \end{streamblock}%
+        \vspace{3cm}
+        \begin{multicols}{2}
+            \begin{figure}
+              \includegraphics[width=\linewidth]{logos/github.png}
+            \end{figure}
+            \columnbreak
+                              https://github.com/mackaiver/jayct
+
+
+                https://github.com/mackaiver/streams-cta
+          \end{multicols}
+
 
       \end{center}
 
@@ -191,36 +232,44 @@
 
 \vfill
 \begin{columns}[t, onlytextwidth]%
-  \begin{column}{0.42\textwidth}%
+  \begin{column}{0.40\textwidth}%
     \begin{block}[equal height group=bottom]{\normalsize References}
       \footnotesize%
       \printbibliography%
     \end{block}
   \end{column}%
-  \begin{column}{0.42\textwidth}%
+  \begin{column}{0.20\textwidth}%
     \begin{block}[equal height group=bottom]{\normalsize Acknowledgment}
-      \begin{multicols}{2}%
         \footnotesize
         \input{acknowledgement.tex}
-      \end{multicols}%
     \end{block}
   \end{column}%
-  \begin{column}{0.16\textwidth}%
+  \begin{column}{0.40\textwidth}%
     \begin{block}[equal height group=bottom]{\normalsize Contact}
       \begin{columns}%
-        \begin{column}{0.33\textwidth}
-          \includegraphics[width=\linewidth]{images/alf.jpg}
+        \begin{column}{0.18\textwidth}
+          \includegraphics[width=0.9\linewidth]{images/alf.jpg}
         \end{column}
-        \begin{column}{0.65\textwidth}
+        \begin{column}{0.32\textwidth}
           \footnotesize
               Kai Brügge, \\
               Astroparticle Physics, \\
               TU Dortmund \\
               \texttt{kai.bruegge@udo.edu}
         \end{column}
-
+        \begin{column}{0.18\textwidth}
+          \includegraphics[width=0.9\linewidth]{images/alf.jpg}
+        \end{column}
+        \begin{column}{0.32\textwidth}
+          \footnotesize
+              Alexey Egorov, \\
+              Artifical Intelligence Group, \\
+              TU Dortmund \\
+              \texttt{alexey.egorov@udo.edu}
+        \end{column}
       \end{columns}
     \end{block}
+
   \end{column}%
 \end{columns}%
 \end{document}
