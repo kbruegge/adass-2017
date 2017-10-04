@@ -9,7 +9,7 @@ texoptions = -lualatex \
 
 all: build/poster.pdf
 
-build/poster.pdf: poster.tex beamerthemefact.sty figures/fermi.pdf figures/runtime.pdf figures/image.pdf figures/auc_type.pdf figures/total_auc.pdf figures/resolution.pdf figures/trigger.pdf figures/skymap.pdf  | build
+build/poster.pdf: poster.tex beamerthemefact.sty figures/eventrate_vs_framework.pdf figures/stream.pdf figures/fermi.pdf figures/runtime.pdf figures/image.pdf figures/auc_type.pdf figures/total_auc.pdf figures/resolution.pdf figures/trigger.pdf figures/skymap.pdf  | build
 	latexmk $(texoptions) poster.tex
 
 
@@ -36,6 +36,14 @@ figures/trigger.pdf:  $(rta_predictions_protons) $(rta_predictions_gammas) matpl
 
 figures/runtime.pdf:  matplotlibrc ../plots/plot_total_eventrate.py
 	MATPLOTLIBRC=./ $(PYTHON) ../plots/plot_total_eventrate.py  ../data/performance_csv/*.csv figures/runtime.pdf
+
+figures/eventrate_vs_framework.pdf: ../data/performance_flink.csv ../data/performance_storm.csv ../data/performance_streams-runtime.csv ../plots/plot_eventrate_by_framework.py
+	MATPLOTLIBRC=./ $(PYTHON) ../plots/plot_eventrate_by_framework.py ../data/performance_flink.csv ../data/performance_streams-runtime.csv ../data/performance_storm.csv figures/eventrate_vs_framework.pdf -l flink-runtime -l streams-runtime -l storm-runtime
+
+
+figures/stream.pdf: stream.tex
+	latexmk -lualatex -output-directory=figures stream.tex
+
 
 
 preview: poster.tex beamerthemefact.sty | build

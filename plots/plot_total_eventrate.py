@@ -32,19 +32,19 @@ def main(input_files, output_file):
 
 
 
-    sorted_columns = natsorted(total_datarates.columns)
+    sorted_columns = natsorted(total_datarates.columns)[0:24]
     total_datarates = total_datarates.reindex_axis(sorted_columns, axis=1)
 
     sns.set_style('darkgrid')
     ax = sns.violinplot(data=total_datarates, linewidth=0.6, inner=None, scale='width')
     # ax.set_xlim([-1, 49])
-    major_ticks = np.arange(3, 49, 4)
-    minor_ticks = np.arange(0, 49, 1)
+    major_ticks = np.arange(3, 26, 4)
+    minor_ticks = np.arange(0, 26, 1)
 
     ax.set_xticks(major_ticks)
     ax.set_xticks(minor_ticks, minor=True)
 
-    labels = np.arange(4, 49, 4)
+    labels = np.arange(4, 26, 4)
     ax.set_xticklabels(labels)
 
     sns.despine()

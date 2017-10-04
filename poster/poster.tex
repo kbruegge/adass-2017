@@ -58,9 +58,9 @@
 
     \begin{block}[]{Classification and Regression}%
       \begin{multicols}{2}
-        \begin{figure}
-          \includegraphics[width=0.9\linewidth]{logos/sklearn.png}\\
-        \end{figure}
+          \begin{figure}
+            \includegraphics[width=0.9\linewidth]{figures/stream.pdf}\\
+          \end{figure}
         \columnbreak
         Supervised machine learning is used to separate signal from background and to estimate
         the energy of a recorded event. Features for classification/regression are calculated from raw input
@@ -75,13 +75,14 @@
     \begin{block}[]{Framework Comparisons}%
       \begin{multicols}{2}
         \begin{figure}
-          \includegraphics[width=\linewidth]{images/alf.jpg}\\
+          \includegraphics[width=\linewidth]{figures/eventrate_vs_framework.pdf}\\
           % \caption{Toller Plot.\cite{fact-performance}}
         \end{figure}
         \columnbreak
-        At the time of writing we that the streaming capabilities of the Apache Spark framework lack proper support and documentation
-        which is why we concentrated on Storm and Flink. We compare the runtime of Storm, Flink and the streams-framework in a local setup on a single
-        core to measure the impact of the overhead these frameworks produce. The results can be seen on the image on the left.
+        Tuning the Apache Spark framework for fast streaming application is more complicated due to its micro-batch architecture.
+        Hence, we concentrated on Apache Storm and Apache Flink. We compare the runtime of Storm, Flink and the streams-framework in
+        a local setup on a single core to measure the impact of the overhead these frameworks produce.
+        The results can be seen on the image on the left.
         There is no clear preference between Storm and Flink when it comes to runtime overhead. We chose to continue our experiments on
         Apache Flink due to easier setup, better visualization tools and a more comfortable abstraction compared to the rather low-level
         API of Apache Storm.
@@ -97,7 +98,7 @@
         \columnbreak
           The figure on the left shows the number of events per second versus the number of used CPU cores.
           This test was executed on a machine with 24 physical CPU cores and 128 Gigabytes of RAM.
-          The datarate goes up to \num{18000} events per second. The expected eventrate of CTA is between
+          The datarate goes up to approximately \num{14000} events per second. The expected eventrate of CTA is between
           \num{10000} and \num{20000} events per second depending on deployment.
           This shows that it will be possible to completely analyse CTA data with only a few of computers.
           Frameworks like Apache Flink make distributing the workload over many computers easy and maintanable.
@@ -219,11 +220,14 @@
             \end{figure}
             \columnbreak
                 \vspace*{2cm}
-
-                https://github.com/mackaiver/jayct
-
-
+                \begin{tabular}{l}
+                https://github.com/mackaiver/jayct \\
                 https://github.com/mackaiver/streams-cta
+                \end{tabular}
+
+
+
+
           \end{multicols}
 
 

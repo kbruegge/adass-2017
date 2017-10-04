@@ -1,0 +1,91 @@
+\documentclass{minimal}
+\usepackage[paperwidth=18cm,paperheight=9.25cm,margin=0.07cm]{geometry}
+\usepackage{fontspec}
+\newfontfamily{\streamsfont}{fira sans thin}
+\defaultfontfeatures{Ligatures=TeX}  % -- becomes en-dash etc.
+
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{shadows.blur}
+\usetikzlibrary{arrows.meta}
+
+
+\begin{document}
+\begin{tikzpicture}
+      \definecolor{sourceGreen}{HTML}{77cc5a}
+      \definecolor{sinkRed}{HTML}{c45858}
+
+      \pgfmathsetmacro{\scale}{1};
+      \pgfmathsetmacro{\sourceWidth}{3.6*\scale};
+      \pgfmathsetmacro{\sourceHeight}{5*\scale};
+      \pgfmathsetmacro{\cubeSize}{3*\scale};
+      \pgfmathsetmacro{\circleSize}{1*\scale};
+      \pgfmathsetmacro{\textShift}{2.5*\scale};
+      \pgfmathsetmacro{\sourceYShift}{(\sourceHeight-\cubeSize)*0.5};
+
+      \tikzset{every node/.style={rectangle, draw=black!80,fill=gray, text=white, rounded corners=0.5pt, ultra thin, font=\fontsize{22}{18}\streamsfont,},
+                    processorshape/.style={minimum width=5 cm,minimum height=\cubeSize cm},
+                    datashape/.style={minimum width=\sourceWidth cm ,minimum height=\cubeSize cm, align=center, },
+                    queueshape/.style={minimum width=\cubeSize cm,minimum height=\cubeSize cm },
+                    source_anchor/.style = {circle, draw=sourceGreen, fill=sourceGreen, minimum size=\circleSize cm, line width = 0.1cm,
+                                                            blur shadow={shadow xshift=-0.07cm, shadow yshift=-0.07cm}
+                                                          },
+                    sink_anchor/.style = {circle, draw=sinkRed, fill=sinkRed, minimum size=\circleSize cm, line width = 0.1cm,
+                                                            blur shadow={shadow xshift=-0.07cm, shadow yshift=-0.07cm}
+                                                        },
+                    }
+
+      \node[datashape] (source_2) at (0, 0) {
+      \begin{tabular}{c}
+        Telescope \\
+        Data \\
+        Stream
+      \end{tabular}
+      };
+      \node[datashape, fill=black!30!white] (source_1) at (0, 6) {
+      \begin{tabular}{c}
+        Simulated \\
+        Data
+      \end{tabular}
+      };
+
+      \node[draw=none,fill=none, text=black!90!white] (pmml) at (8.4, 3) {PMML};
+
+      \node[processorshape, fill=black!30!white] (processor_2) at (7, 6) {
+        \begin{tabular}{c}
+          Model Training \\
+          \includegraphics[width=2.5 cm]{logos/sklearn.png}\\
+        \end{tabular}
+
+        };
+      \node[processorshape] (q_1) at (7, 0) {
+      \begin{tabular}{c}
+        Model \\
+        Application
+      \end{tabular}
+      };
+
+      \node[queueshape] (sink_1) at (13, 0) {Sink};
+
+      % \draw node[vertex] (Joint) at (1,0) {};
+
+
+      \draw[->,draw=gray,  line width = 1.5 pt] ([shift={(0.5*\sourceWidth cm,0)}]$(source_1)-(0,0)$) to (processor_2);
+      \draw[->,draw=gray, line width = 1.5 pt] (processor_2) to (q_1);
+
+      \draw[->,draw=gray, line width = 1.5 pt] ([shift={(0.5*\sourceWidth cm,0)}]$(source_2)-(0,0)$) to (q_1);
+
+      \draw[->,draw=gray,  line width = 1.5 pt] (q_1) to (sink_1);
+
+      \node[source_anchor](anchor_1) at ([shift={(0.57*\sourceWidth cm,0)}]source_1){};
+      \node[source_anchor](anchor_1) at ([shift={(0.57*\sourceWidth cm,0)}]source_2){};
+
+      \node[sink_anchor](sink_1) at ([shift={(-0.5*\cubeSize cm, 0)}]sink_1){};
+    \end{tikzpicture}
+
+
+\end{document}
