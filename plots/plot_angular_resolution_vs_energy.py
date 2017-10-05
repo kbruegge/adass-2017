@@ -56,6 +56,7 @@ def main(input_file, output_file):
     # whis=[15.7, 15.7+68.2]
     sns.boxplot(x='energy_bin', y='spherical_distance', data=df, fliersize=1, linewidth=1)
     plt.ylabel('Distance to True Position / degree')
+    plt.ylabel('Distance to True Position / Degree')
     plt.xlabel('Energy Bins / TeV')
     plt.ylim([-0.08, 1])
     plt.tight_layout()
