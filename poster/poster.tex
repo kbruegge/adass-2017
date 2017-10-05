@@ -80,7 +80,7 @@
         \end{figure}
         \columnbreak
         Tuning the Apache Spark framework for fast streaming application is more complicated due to its micro-batch architecture.
-        Hence, we concentrated on Apache Storm and Apache Flink. We compare the runtime of Storm, Flink and the streams-framework in
+        Hence, we concentrated on Apache Storm\cite{storm} and Apache Flink\cite{flink}. We compare the runtime of Storm, Flink and the streams-framework\cite{streams} in
         a local setup on a single core to measure the impact of the overhead these frameworks produce.
         The results can be seen on the image on the left.
         There is no clear preference between Storm and Flink when it comes to runtime overhead. We chose to continue our experiments on
@@ -99,7 +99,7 @@
           The figure on the left shows the number of events per second versus the number of used CPU cores.
           This test was executed on a machine with 24 physical CPU cores and 128 Gigabytes of RAM.
           The datarate goes up to approximately \num{14000} events per second. The expected eventrate of CTA is between
-          \num{10000} and \num{20000} events per second depending on deployment.
+          \num{10000} and \num{20000} events per second depending on deployment\cite{trigger}.
           This shows that it will be possible to completely analyse CTA data with only a few of computers.
           Frameworks like Apache Flink make distributing the workload over many computers easy and maintanable.
       \end{multicols}
@@ -213,7 +213,7 @@
             The image on the left shows a skymap for a simulated gamma-ray source.
           \end{multicols}
         \end{streamblock}%
-        \vspace{3cm}
+        \vspace{2cm}
         \begin{multicols}{2}
             \begin{figure}
               \includegraphics[width=\linewidth]{logos/github.png}
@@ -238,7 +238,7 @@
 
 \vfill
 \begin{columns}[t, onlytextwidth]%
-  \begin{column}{0.40\textwidth}%
+  \begin{column}{0.50\textwidth}%
     \begin{block}[equal height group=bottom]{\normalsize References}
       \footnotesize%
       \printbibliography%
@@ -250,29 +250,58 @@
         \input{acknowledgement.tex}
     \end{block}
   \end{column}%
-  \begin{column}{0.40\textwidth}%
+  \begin{column}{0.30\textwidth}%
     \begin{block}[equal height group=bottom]{\normalsize Contact}
-      \begin{multicols}{4}
-          \begin{figure}
-            \includegraphics[width=0.5\linewidth]{images/alf.jpg}
-          \end{figure}
-          \columnbreak
+      \begin{columns}[T]
+        \begin{column}{0.2\textwidth}
+              \begin{figure}
+                \includegraphics[width=1.2\linewidth, angle=-90]{images/kai.jpg}
+              \end{figure}
+        \end{column}
+        \begin{column}{0.3\textwidth}
+            \footnotesize
+                     \vspace*{0.5cm}
+                Kai Brügge, \\
+                Astroparticle Physics, \\
+                TU Dortmund \\
+                \texttt{kai.bruegge@udo.edu}
+        \end{column}
+        \begin{column}{0.2\textwidth}
+              \begin{figure}
+                \includegraphics[width=1.2\linewidth, angle=-90]{images/alexey.jpg}
+              \end{figure}
+        \end{column}
+        \begin{column}{0.3\textwidth}
               \footnotesize
-                  Kai Brügge, \\
-                  Astroparticle Physics, \\
+                  \vspace*{0.5cm}
+                  Alexey Egorov, \\
+                  AI Group, \\
                   TU Dortmund \\
-                  \texttt{kai.bruegge@udo.edu}
-          \columnbreak
-            \begin{figure}
-              \includegraphics[width=0.5\linewidth]{images/alf.jpg}
-            \end{figure}
-            \columnbreak
-                \footnotesize
-                    Alexey Egorov, \\
-                    AI Group, \\
-                    TU Dortmund \\
-                    \texttt{alexey.egorov@udo.edu}
-        \end{multicols}
+                  \texttt{alexey.egorov@udo.edu}
+        \end{column}
+      \end{columns}
+
+      % \begin{multicols}{4}
+      %     \begin{figure}
+      %       \includegraphics[width=0.7\linewidth, angle=-90]{images/kai.jpg}
+      %     \end{figure}
+      %     \columnbreak
+      %         \footnotesize
+      %             Kai Brügge, \\
+      %             Astroparticle Physics, \\
+      %             TU Dortmund \\
+      %             \texttt{kai.bruegge@udo.edu}
+      %     \columnbreak
+      %       \begin{figure}
+      %         \includegraphics[width=0.7\linewidth, angle=-90]{images/alexey.jpg}
+      %       \end{figure}
+      %       \columnbreak
+      %           \footnotesize
+      %               Alexey Egorov, \\
+      %               AI Group, \\
+      %               TU Dortmund \\
+      %               \texttt{alexey.egorov@udo.edu}
+      %   \end{multicols}
       % \begin{columns}%
       %   \begin{column}{0.18\linewidth}
       %     \tikz[]{
