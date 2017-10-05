@@ -79,13 +79,20 @@
           % \caption{Toller Plot.\cite{fact-performance}}
         \end{figure}
         \columnbreak
-        Tuning the Apache Spark framework for fast streaming application is more complicated due to its micro-batch architecture.
-        Hence, we concentrated on Apache Storm\cite{storm} and Apache Flink\cite{flink}. We compare the runtime of Storm, Flink and the streams-framework\cite{streams} in
+        Frameworks for distributed stream processing such as Apache Storm\cite{storm}, Flink\cite{flink} or Spark Streaming allow for simple and maintable workload distribution with fault tolerance and high availability mechanisms to recover from hardware, network or further failures.
+%          Furthermore, fault tolerance and high availability features  and  make distributing the workload over many computers simple and maintanable.
+        Tuning Apache Spark for fast streaming applications is more complicated due to its micro-batch architecture.
+%        Hence, 
+%        We didn't consider Spark Streaming due to more complicated tuning of its micro-batch architecture for fast streaming applications.
+%        We concentrated on Apache Storm and Apache Flink due to more complicated tuning of Spark's micro-batch architecture for fast streaming applications. 
+        Hence, we compare the runtime of Storm, Flink and the streams-framework\cite{streams} in
         a local setup on a single core to measure the impact of the overhead these frameworks produce.
-        The results can be seen on the image on the left.
-        There is no clear preference between Storm and Flink when it comes to runtime overhead. We chose to continue our experiments on
-        Apache Flink due to easier setup, better visualization tools and a more comfortable abstraction compared to the rather low-level
-        API of Apache Storm.
+        The results 
+%        can be seen 
+	on the image on the left
+%        There is 
+        show no clear preference between Storm and Flink when it comes to runtime overhead. 
+        We chose to continue our experiments on Apache Flink due to easier setup, better visualization tools and a more comfortable abstraction compared to the rather low-level API of Apache Storm.
       \end{multicols}
     \end{block}%
 
@@ -101,8 +108,6 @@
           The datarate goes up to approximately \num{14000} events per second. The expected eventrate of CTA is between
           \num{10000} and \num{20000} events per second depending on deployment\cite{trigger}.
           This shows that it will be possible to completely analyse CTA data with only a few of computers.
-          Frameworks like Apache Flink allow for simple and maintable workload distribution with fault tolerance and high availability mechanisms to recover from hardware, network or further failures.
-%          Furthermore, fault tolerance and high availability features  and  make distributing the workload over many computers simple and maintanable.
       \end{multicols}
     \end{block}%
 
