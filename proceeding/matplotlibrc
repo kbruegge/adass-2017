@@ -3,14 +3,14 @@
 font.family: serif
 text.usetex: true
 #text.latex.preamble: \usepackage{asp2014}
-font.sans-serif: 
+font.sans-serif:
 
 patch.linewidth: 0.4
 patch.facecolor: 348ABD  # blue
 patch.edgecolor: EEEEEE
 patch.antialiased: True
 
-font.size: 10.0
+font.size: 14.0
 
 axes.facecolor: E5E5E5
 axes.edgecolor: white
