@@ -48,8 +48,8 @@ def main(input_files, output_file):
     ax.set_xticklabels(labels)
 
     sns.despine()
-    plt.xlabel('Number of threads')
-    plt.ylabel('Events per second')
+    plt.xlabel('Number of Threads')
+    plt.ylabel('Events per Second')
     plt.tight_layout()
     plt.savefig(output_file)
 

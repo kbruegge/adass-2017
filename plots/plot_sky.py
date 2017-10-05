@@ -47,8 +47,8 @@ def main(gammas, protons, output_file):
     # import IPython; IPython.embed()
     plt.hist2d(c.ra.deg, c.dec.deg, cmap='inferno', bins=[np.linspace(262.25, 263.25, 30), np.linspace(-5.2, -4.2, 30)], weights=w)
 
-    plt.xlabel('Right Ascension  / degree')
-    plt.ylabel('Declination / degree')
+    plt.xlabel('Right Ascension / Degree')
+    plt.ylabel('Declination / Degree')
     plt.tight_layout()
     # b = plt.colorbar()
     # b.set_label('Events')

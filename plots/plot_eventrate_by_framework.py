@@ -29,7 +29,7 @@ def main(input_files, output_file, label):
         sns.violinplot(data=result, linewidth=1.2, fliersize=1)
 
     sns.despine()
-    plt.ylabel('events per second')
+    plt.ylabel('Events per Second')
     plt.tight_layout()
     plt.savefig(output_file)
 
