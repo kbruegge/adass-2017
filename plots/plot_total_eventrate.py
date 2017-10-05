@@ -19,7 +19,7 @@ def main(input_files, output_file):
     total_datarates = pd.DataFrame()
 
     for f in input_files:
-        print('reading file {}'.format(f))
+        # print('reading file {}'.format(f))
         df = pd.read_csv(f)
         result = pd.DataFrame()
         n_threads = len(df.groupby('copy_id'))

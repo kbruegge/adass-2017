@@ -9,7 +9,8 @@ import numpy as np
 @click.argument('predicted_gammas', type=click.Path(exists=True, dir_okay=False,))
 @click.argument('predicted_protons', type=click.Path(exists=True, dir_okay=False,))
 @click.argument('output_file', type=click.Path(exists=False, dir_okay=False,))
-def main(predicted_gammas, predicted_protons, output_file):
+@click.option('--fill/--no-fill', default=True)
+def main(predicted_gammas, predicted_protons, output_file, fill):
     '''
     Plot the event distributions from the triggered gammas given in the
     PREDICTED_EVENTS input file.
@@ -29,8 +30,14 @@ def main(predicted_gammas, predicted_protons, output_file):
 
     nums = np.arange(2, 21, 1)
     width = 1
-    plt.bar(left=nums - width / 2.0, width=1, height=c_g[nums], tick_label=nums, alpha=0.5, label='gammas')
-    plt.bar(left=nums - width / 2.0, width=1, height=c_p[nums], tick_label=nums, alpha=0.5, label='protons')
+    if fill:
+        plt.bar(left=nums - width / 2.0, width=1, height=c_g[nums], tick_label=nums, alpha=0.5, label='gammas')
+        plt.bar(left=nums - width / 2.0, width=1, height=c_p[nums], tick_label=nums, alpha=0.5, label='protons')
+    else:
+        print('Not filling bar plot')
+        colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
+        plt.bar(left=nums - width / 2.0, width=1, height=c_g[nums], tick_label=nums, label='gammas', linewidth=2.0, fill=False, edgecolor=colors[0])
+        plt.bar(left=nums - width / 2.0, width=1, height=c_p[nums], tick_label=nums, label='protons', linewidth=2.0, fill=False, edgecolor=colors[1])
     plt.ylabel('Fraction of Events')
     plt.xlabel('Number of Triggered Telescopes')
     plt.legend()

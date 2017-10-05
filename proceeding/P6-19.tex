@@ -4,11 +4,6 @@
 % Copyright 2014, Astronomical Society of the Pacific Conference Series
 % Revision:  14 August 2014
 
-% To compile, at the command line positioned at this folder, type:
-% latex ADASS_template
-% latex ADASS_template
-% dvipdfm ADASS_template
-% This will create a file called aspauthor.pdf.}
 
 \documentclass[11pt,twoside]{article}
 
@@ -19,7 +14,7 @@
 \resetcounters
 
 % References must all use BibTeX entries in a .bibfile.
-% References must be cited in the text using \citet{} or \citep{}.
+% References must be cited in the text using \citep{} or \citep{}.
 % Do not use \cite{}.
 % See ManuscriptInstructions.pdf for more details
 \bibliographystyle{asp2014}
@@ -31,11 +26,11 @@
 % Use mixed case type for the shortened title
 % Ensure shortened title does not cause an overfull hbox LaTeX error
 % See ASPmanual2010.pdf 2.1.4  and ManuscriptInstructions.pdf for more details
-\markboth{Bruegge et al.}{Towards Robotic Operation with the First G-APD Cherenkov Telescope}
+\markboth{Bruegge et al.}{Distributed real-time data stream analysis for CTA}
 
 \begin{document}
 
-\title{Towards Robotic Operation with the First G-APD Cherenkov Telescope}
+\title{Distributed real-time data stream analysis for CTA}
 
 % Note the position of the comma between the author name and the
 % affiliation number.
@@ -63,8 +58,7 @@
   Images are streamed from all the telescopes into a central computing facility on site.
   During observation CTA will produce a stream of up to 15 000 images per second. Noise suppression and feature extraction algorithms are applied to each image in the stream as well as previously trained machine learning models.
   Restricted computing power of a single machine and the limits of network's data transfer rates become a bottleneck for stream processing systems in a traditional single-machine setting.
-  We explore several different distributed streaming technologies
-  from the Apache Big-Data eco-system like Spark, Flink, Storm to handle the large amount of data coming from the telescopes.
+  We explore several different distributed streaming technologies from the Apache Big-Data eco-system like Spark, Flink, Storm to handle the large amount of data coming from the telescopes.
   To share a single code base while executing on different streaming engines we employ  abstraction layers such as the streams-framework and the Apache Beam project.
   These use  a high level language to build up processing pipelines that can transformed into native the pipelines of the different platforms.
   Here we present results of our investigation and show a first prototype capable of analyzing CTA data in real-time.
@@ -72,16 +66,27 @@
 \end{abstract}
 
 \section{The Cherenkov Telecope Array}
-Bla Bla Eien zitation hier bitteschoen: \cite{pmml}. Lecker Bild hier: \ref{fig:auc}
+Once completed, the  Cherenkov Telescope Array (CTA)  will be able to map the gamma-ray sky
+in a wide energy range from several tens of GeV to some hundreds of TeV and will be more sensitive
+than previous experiments by an order of magnitude.
+CTA will consist of approximately 100 imaging air cherenkov telescopes (IACTs) of different sizes and designs.
+Telescope data will be streamed via network from the telescopes to a central computing facility
+on-site.
+Cherenkov telescopes record light produced by particle showers induced in the upper atmosphere by cosmic rays.
+While the cosmic ray flux is approximately isotropic over the sky, gamma rays of cosmic origin can be pinpointed back to its source.
+Filtering air showers produced by cosmic rays while keeping those produced by gamma rays is the main challenge for IACT data analysis.
 
-\articlefigure{P6-19_f1.eps}{fig:auc}{Sie moegen gerne EIER.}
-%
-% \begin{figure}[htbp]
-%   \begin{center}
-%     \includegraphics[width=\textwidth]{P6-19_f1.eps}
-%     \caption{\label{fig:auc} \citep{pmml}}
-%   \end{center}
-% \end{figure}
+
+
+\section{Real Time Analysis}
+
+The data aquisition system will supply the real time analysis (RTA) with calibrated images of each triggered telescope.
+Features for classication/regression are calculated from those images.
+Simulated and labeled data is used to train the models using the Python machine learning library scikit-learn~\citep{sklearn}.
+The trained scikit-learn models are converted into the PMML~\citep{pmml} format using the sklearn2pmml~\citep{sklearn2pmml} library.
+This way the stored model can be shared between programming languages and applied to the data stream from the telescopes.
+
+\articlefiguretwo{P6-19_f1.eps}{P6-19_f2.eps}{fig:image}{Now there are two of them.  \emph{Left:} An image from long ago.  \emph{Right:} The same exact thing.}
 
 
 
