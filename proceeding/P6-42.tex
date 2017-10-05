@@ -26,7 +26,7 @@
 % Use mixed case type for the shortened title
 % Ensure shortened title does not cause an overfull hbox LaTeX error
 % See ASPmanual2010.pdf 2.1.4  and ManuscriptInstructions.pdf for more details
-\markboth{Bruegge et al.}{Distributed real-time data stream analysis for CTA}
+\markboth{Br\"ugge et al.}{Distributed Real-Time Data Stream Analysis for CTA}
 
 \begin{document}
 
@@ -74,22 +74,34 @@ Telescope data will be streamed via network from the telescopes to a central com
 on-site.
 Cherenkov telescopes record light produced by particle showers induced in the upper atmosphere by cosmic rays.
 While the cosmic ray flux is approximately isotropic over the sky, gamma rays of cosmic origin can be pinpointed back to its source.
-Filtering air showers produced by cosmic rays while keeping those produced by gamma rays is the main challenge for IACT data analysis.
+Filtering air showers produced by cosmic rays while keeping those produced by gamma rays is a big in IACT data analysis.
 
 
 
 \section{Real Time Analysis}
 
+One of CTA's main goals is monitoring the sky for transient events. These include Gamma-Ray Burst (GRBs) events and
+Active Galactic Nuclei (AGNs).
+To gain more understanding about the physics behind GRBs and AGN it is vital to perform multi-wavelengths observations.
+In case a GRB is detected,  CTA can alert other experiments to trigger observations in other wavelengths bands.
 The data aquisition system will supply the real time analysis (RTA) with calibrated images of each triggered telescope.
-Features for classication/regression are calculated from those images.
+The expected event rate of CTA is between \num{10000} and \num{20000} events per second depending on deployment\cite{trigger}.
+Features for classication/regression are calculated on each image in the triggered events.
 Simulated and labeled data is used to train the models using the Python machine learning library scikit-learn~\citep{sklearn}.
+These models are then used for filtering of comsic ray showers and estimation of primary particle energy.
 The trained scikit-learn models are converted into the PMML~\citep{pmml} format using the sklearn2pmml~\citep{sklearn2pmml} library.
 This way the stored model can be shared between programming languages and applied to the data stream from the telescopes.
 
-\articlefiguretwo{P6-19_f1.eps}{P6-19_f2.eps}{fig:image}{Now there are two of them.  \emph{Left:} An image from long ago.  \emph{Right:} The same exact thing.}
+\articlefiguretwo{P6-42_f1.eps}{P6-42_f2.eps}{fig:image}{\emph{Left:} A typical image as recorded by an IACT camera.
+\emph{Right:} Distribution of trigger multiplicities in the simulated data.}
+
+\section{Runtime Measurements}
 
 
+\articlefiguretwo{P6-42_f1.eps}{P6-42_f2.eps}{fig:image}{\emph{Left:} A typical image as recorded by an IACT camera.
+\emph{Right:} Distribution of trigger multiplicities in the simulated data.}
 
-\bibliography{P6-19}
+
+\bibliography{P6-42}
 
 \end{document}

@@ -38,7 +38,7 @@ def main(predicted_gammas, predicted_protons, output_file, fill):
         colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
         plt.bar(left=nums - width / 2.0, width=1, height=c_g[nums], tick_label=nums, label='gammas', linewidth=2.0, fill=False, edgecolor=colors[0])
         plt.bar(left=nums - width / 2.0, width=1, height=c_p[nums], tick_label=nums, label='protons', linewidth=2.0, fill=False, edgecolor=colors[1])
-    plt.ylabel('Fraction of Events')
+    plt.ylabel('Fraction of Simulated Events')
     plt.xlabel('Number of Triggered Telescopes')
     plt.legend()
     plt.tight_layout()
