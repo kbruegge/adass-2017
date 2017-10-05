@@ -1,4 +1,8 @@
 poster/figures
+
+proceeding/*.eps
+proceeding/*.pdf
+
 data/predictions_rta_gammas_test_sample.csv
 data/predictions_rta_protons_test_sample.csv
 

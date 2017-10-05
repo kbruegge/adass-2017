@@ -9,7 +9,7 @@ texoptions = -lualatex \
 
 all: build/poster.pdf
 
-build/poster.pdf: poster.tex beamerthemefact.sty figures/eventrate_vs_framework.pdf figures/stream.pdf figures/fermi.pdf figures/runtime.pdf figures/image.pdf figures/auc_type.pdf figures/total_auc.pdf figures/resolution.pdf figures/trigger.pdf figures/skymap.pdf  | build
+build/poster.pdf: poster.tex beamerthemefact.sty references.bib acknowledgement.tex figures/eventrate_vs_framework.pdf figures/stream.pdf figures/fermi.pdf figures/runtime.pdf figures/image.pdf figures/auc_type.pdf figures/total_auc.pdf figures/resolution.pdf figures/trigger.pdf figures/skymap.pdf  | build
 	latexmk $(texoptions) poster.tex
 
 
