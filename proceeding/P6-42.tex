@@ -85,7 +85,7 @@ Active Galactic Nuclei (AGNs).
 To gain more understanding about the physics behind GRBs and AGN it is vital to perform multi-wavelengths observations.
 In case a GRB is detected,  CTA can alert other experiments to trigger observations in other wavelengths bands.
 The data aquisition system will supply the real time analysis (RTA) with calibrated images of each triggered telescope.
-The expected event rate of CTA is between \num{10000} and \num{20000} events per second depending on deployment\cite{trigger}.
+The expected event rate of CTA is between $10000$ and $20000$ events per second depending on deployment~\citep{trigger}.
 Features for classication/regression are calculated on each image in the triggered events.
 Simulated and labeled data is used to train the models using the Python machine learning library scikit-learn~\citep{sklearn}.
 These models are then used for filtering of comsic ray showers and estimation of primary particle energy.
@@ -97,9 +97,28 @@ This way the stored model can be shared between programming languages and applie
 
 \section{Runtime Measurements}
 
+Tuning the Apache Spark framework for fast streaming application is more complicated due to its micro-batch architecture.
+Hence, we concentrated on Apache Storm\cite{storm} and Apache Flink\cite{flink}. We compare the runtime of Storm, Flink and the streams-framework\cite{streams} in
+a local setup on a single core to measure the impact of the overhead these frameworks produce.
+The results can be seen on the image on the left.
+There is no clear preference between Storm and Flink when it comes to runtime overhead. We chose to continue our experiments on
+Apache Flink due to easier setup, better visualization tools and a more comfortable abstraction compared to the rather low-level
+API of Apache Storm.
 
-\articlefiguretwo{P6-42_f1.eps}{P6-42_f2.eps}{fig:image}{\emph{Left:} A typical image as recorded by an IACT camera.
+\articlefiguretwo{P6-42_f3.eps}{P6-42_f4.eps}{fig:image}{\emph{Left:} A typical image as recorded by an IACT camera.
 \emph{Right:} Distribution of trigger multiplicities in the simulated data.}
+
+
+\section{Machine Learning Performance}
+
+We use a Random Forest classifier to separte signal events from background events. We trained an ensemble of 200 trees
+on simulated data. The trained model is then applied to each single telescope in the data stream. The predictions
+for each telescope are then averaged to get a combined prediction for the entire event.
+
+\articlefiguretwo{P6-42_f5.eps}{P6-42_f6.eps}{fig:image}{\emph{Left:} A typical image as recorded by an IACT camera.
+\emph{Right:} Distribution of trigger multiplicities in the simulated data.}
+
+
 
 
 \bibliography{P6-42}

@@ -12,7 +12,7 @@ texinputs=TEXINPUTS=.:../../common:
 
 all: build/P6-42.tar
 
-build/P6-42.pdf: FORCE P6-42_f1.eps P6-42_f2.eps P6-42_f3.eps
+build/P6-42.pdf: FORCE P6-42_f1.eps P6-42_f2.eps P6-42_f3.eps P6-42_f4.eps P6-42_f5.eps P6-42_f6.eps
 	$(texinputs) $(bibinputs) latexmk $(texoptions) P6-42.tex
 
 # this compiles the proceeding, opens a pdf viewer and
@@ -36,6 +36,15 @@ P6-42_f2.eps:  $(rta_predictions_protons) $(rta_predictions_gammas) matplotlibrc
 P6-42_f3.eps:  matplotlibrc ../plots/plot_total_eventrate.py
 	MATPLOTLIBRC=./ $(PYTHON) ../plots/plot_total_eventrate.py  ../data/performance_csv/*.csv P6-42_f3.eps
 
+P6-42_f4.eps: ../data/performance_flink.csv ../data/performance_storm.csv ../data/performance_streams-runtime.csv ../plots/plot_eventrate_by_framework.py
+	MATPLOTLIBRC=./ $(PYTHON) ../plots/plot_eventrate_by_framework.py ../data/performance_flink.csv ../data/performance_streams-runtime.csv ../data/performance_storm.csv P6-42_f4.eps -l flink-runtime -l streams-runtime -l storm-runtime
+
+
+P6-42_f5.eps: ../data/predictions.hdf ../plots/plot_auc_type.py matplotlibrc
+	MATPLOTLIBRC=./ $(PYTHON) ../plots/plot_auc_type.py  ../data/predictions.hdf P6-42_f5.eps
+
+P6-42_f6.eps:  $(rta_predictions_protons) $(rta_predictions_gammas) matplotlibrc ../plots/plot_multi_tel_auc.py
+	MATPLOTLIBRC=./ $(PYTHON) ../plots/plot_multi_tel_auc.py  $(rta_predictions_gammas) $(rta_predictions_protons) P6-42_f6.eps
 
 
 FORCE:
