@@ -22,7 +22,8 @@ preview: FORCE
 
 build/P6-42.tar: build/P6-42.pdf P6-42.bib P6-42.tex
 	mkdir -p build/P6-42
-	cp P6-42.bib P6-42.tex build/P6-42.pdf build/P6-42
+	cp references.bib build/P6-42.bib
+	cp P6-42.tex build/P6-42.pdf build/P6-42
 	cd build && tar -cf P6-42.tar P6-42
 
 
