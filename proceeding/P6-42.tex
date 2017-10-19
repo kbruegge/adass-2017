@@ -97,18 +97,18 @@ This way the stored model can be shared between programming languages and applie
 
 \section{Runtime Measurements}
 
-Frameworks for distributed stream processing such as Apache Storm \cite{storm}, Apache Flink \cite{flink} or Apache Spark \cite{spark} allow for simple and maintable workload distribution with fault tolerance and high availability mechanisms to recover from hardware, network or further failures. 
+Frameworks for distributed stream processing such as Apache Storm \citep{storm}, Apache Flink \citep{flink} or Apache Spark \citep{spark} allow for simple and maintable workload distribution with fault tolerance and high availability mechanisms to recover from hardware, network or further failures. 
 Tuning Apache Spark for fast streaming applications is more complicated due to its micro-batch architecture. 
 Hence, we compare the runtime of Storm and Flink on a single core to measure the impact of the overhead these frameworks produce. 
 % and the streams-framework \cite{streams}
-To share a single code base while executing on different streaming engines we employ the streams-framework \cite{streams} as an abstraction layer.
+To share a single code base while executing on different streaming engines we employ the streams-framework \citep{streams} as an abstraction layer.
 This way the analysis pipeline is only defined once, but can be easily executed on top of different distributed streaming engines. 
 %the Apache Beam project.
-Figure~\ref{fig:dist-frameworks} shows no clear preference between Storm and Flink when it comes to runtime overhead. 
+The left image in Figure~\ref{fig:dist-frameworks} show less runtime overhead of Flink compared to Storm. 
 The reduction in throughput is negligible compared to multiple features of these frameworks.
-We continue our experiments on Flink due to easier setup, better visualization tools and a more comfortable abstraction compared to the rather low-level API of Storm.
+Thus, we continue our experiments on Flink due to faster processing, easier setup and a more comfortable high-level API compared to Storm.
 
-As the expected eventrate of CTA is between $10000$ and $20000$ events per second depending on deployment \cite{trigger}, the requirement for the real-time processing system is to be able to analyse such a thoughput of data. 
+As the expected eventrate of CTA is between $10000$ and $20000$ events per second depending on deployment \citep{trigger}, the requirement for the real-time processing system is to be able to analyse such a thoughput of data. 
 The right Figure~\ref{fig:dist-frameworks} presents the evaluation of an examplary CTA pipeline executed on top of Flink.
 For this test a machine with $24$ physical CPU cores and $128$ Gigabytes of RAM was used.
 %The  gure on the left shows the number of events per second versus the number of used CPU cores. 
