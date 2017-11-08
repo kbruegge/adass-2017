@@ -40,23 +40,26 @@
 % authors share an affiliation this should be in a single \affil which can then
 % be referenced for several author names.
 % See ManuscriptInstructions.pdf and ASPmanual2010.pdf 3.1.4 for more details
-\author{Kai Br\"ugge$^1$  and Alexey Egorov$^2$}
+\author{Kai Br\"ugge$^1$, Alexey Egorov$^2$, Katharina Morik$^2$ and Wolfgang Rhode$^2$}
 \affil{$^1$TU Dortmund, Dortmund, Germany; \email{kai.bruegge@tu-dortmund.de}}
-\affil{$^2$TU Dortmund, Dortmund, Dortmund; \email{alexey.egorov@tu-dortmund.de}}
+\affil{$^2$TU Dortmund, Dortmund, Germany; \email{firstname.lastname@tu-dortmund.de}}
 
 
 % This section is for ADS Processing.  There must be one line per author.
 \paperauthor{Kai~Br\"ugge}{kai.bruegge@tu-dortmund.de}{}{TU Dortmund}{Experimental Physics 5}{Dortmund}{NRW}{44227}{Germany}
 \paperauthor{Alexey~Egorov}{alexey.egorov@tu-dortmund.de}{}{TU Dortmund}{Artificial Intelligence Group}{Dortmund}{NRW}{44227}{Germany}
+\paperauthor{Katharina~Morik}{katharina.morik@tu-dortmund.de}{}{TU Dortmund}{Artificial Intelligence Group}{Dortmund}{NRW}{44227}{Germany}
+\paperauthor{Wolfgang~Rhode}{wolfgang.rhode@tu-dortmund.de}{}{TU Dortmund}{Experimental Physics 5}{Dortmund}{NRW}{44227}{Germany}
+
 
 \begin{abstract}
 
-  Once completed, the  Cherenkov Telescope Array (CTA)  will be able to map the gamma-ray sky in a wide energy range from several tens of GeV to some hundreds of TeV and will be more sensitive than previous experiments by an order of magnitude.
+  Once completed, the  Cherenkov Telescope Array (CTA) will be able to map the gamma-ray sky in a wide energy range from several tens of GeV to some hundreds of TeV and will be more sensitive than previous experiments by an order of magnitude.
   It opens up the opportunity to observe transient phenomena like gamma-ray bursts (GRBs) and flaring active galactic nuclei (AGN).  In order to successfully trigger multi-wavelengths observations of transients, CTA has to be able to alert other observatories as quickly as possible.  Multi wavelength observations are essential for gaining insights into the processes occurring within these sources of such high energy radiation.
 
   CTA will consist of approximately 100 telescopes of different sizes and designs.
   Images are streamed from all the telescopes into a central computing facility on site.
-  During observation CTA will produce a stream of up to 15 000 images per second. Noise suppression and feature extraction algorithms are applied to each image in the stream as well as previously trained machine learning models.
+  During observation CTA will produce a stream of up to 20 000 images per second. Noise suppression and feature extraction algorithms are applied to each image in the stream as well as previously trained machine learning models.
   Restricted computing power of a single machine and the limits of network's data transfer rates become a bottleneck for stream processing systems in a traditional single-machine setting.
   We explore several different distributed streaming technologies from the Apache Big-Data eco-system like Spark, Flink, Storm to handle the large amount of data coming from the telescopes.
   To share a single code base while executing on different streaming engines we employ  abstraction layers such as the streams-framework and the Apache Beam project.
@@ -69,83 +72,82 @@
 Once completed, the  Cherenkov Telescope Array (CTA)  will be able to map the gamma-ray sky
 in a wide energy range from several tens of GeV to some hundreds of TeV and will be more sensitive
 than previous experiments by an order of magnitude.
-CTA will consist of approximately 100 imaging air cherenkov telescopes (IACTs) of different sizes and designs.
-Telescope data will be streamed via network from the telescopes to a central computing facility
-on-site.
+CTA will consist of approximately 100 imaging air cherenkov telescopes (IACTs) of three different sizes.
+Telescope data will be streamed via network from the telescopes to a central computing facility on-site.
 Cherenkov telescopes record light produced by particle showers induced in the upper atmosphere by cosmic rays.
 While the cosmic ray flux is approximately isotropic over the sky, gamma rays of cosmic origin can be pinpointed back to its source.
-Filtering air showers produced by cosmic rays while keeping those produced by gamma rays is a big in IACT data analysis.
-
+Filtering air showers produced by cosmic rays while keeping those produced by gamma rays is the big challenge in IACT data analysis.
 
 
 \section{Real Time Analysis}
 
-One of CTA's main goals is monitoring the sky for transient events. 
+One of CTA's main goals is monitoring the sky for transient events.
 These include Gamma-Ray Burst (GRBs) events and Active Galactic Nuclei (AGNs).
-To gain more understanding about the physics behind GRBs and AGN it is vital to perform multi-wavelengths observations.
+To gain more understanding about the physics working in GRBs and AGN it is vital to perform multi-wavelengths observations.
 In case a GRB is detected,  CTA can alert other experiments to trigger observations in other wavelengths bands.
 The data aquisition system will supply the real time analysis (RTA) with calibrated images of each triggered telescope.
-The expected event rate of CTA is between $10000$ and $20000$ events per second depending on deployment~\citep{trigger}.
 Features for classication/regression are calculated on each image in the triggered events.
 Simulated and labeled data is used to train the models using the Python machine learning library scikit-learn~\citep{sklearn}.
 These models are then used for filtering of comsic ray showers and estimation of primary particle energy.
 The trained scikit-learn models are converted into the PMML~\citep{pmml} format using the sklearn2pmml~\citep{sklearn2pmml} library.
 This way the stored model can be shared between programming languages and applied to the data stream from the telescopes.
 
-\articlefiguretwo{P6-42_f1.eps}{P6-42_f2.eps}{fig:image}{\emph{Left:} A typical image as recorded by an IACT camera.
-\emph{Right:} Distribution of trigger multiplicities in the simulated data.}
+The expected event rate of CTA will be between $10000$ and $20000$ events per second depending on deployment
+and pointing direction~\citep{trigger}. Every real time processing system for CTA data will have to handle that data rate.
+% The official CTA requirements for the real time analysis define a maximum allowed delay of 30 seconds between input of the data
+% and the output of the result.
 
-\section{Runtime Measurements}
-
-Frameworks for distributed stream processing such as Apache Storm \citep{storm}, Apache Flink \citep{flink} or Apache Spark \citep{spark} allow for simple and maintable workload distribution with fault tolerance and high availability mechanisms to recover from hardware, network or further failures. 
-Tuning Apache Spark for fast streaming applications is more complicated due to its micro-batch architecture. 
-Hence, we compare the runtime of Storm and Flink on a single core to measure the impact of the overhead these frameworks produce. 
-% and the streams-framework \cite{streams}
-To share a single code base while executing on different streaming engines we employ the streams-framework \citep{streams} as an abstraction layer.
-This way the analysis pipeline is only defined once, but can be easily executed on top of different distributed streaming engines. 
-%the Apache Beam project.
-The left image in Figure~\ref{fig:dist-frameworks} show less runtime overhead of Flink compared to Storm. 
-The reduction in throughput is negligible compared to multiple features of these frameworks.
-Thus, we continue our experiments on Flink due to faster processing, easier setup and a more comfortable high-level API compared to Storm.
-
-As the expected eventrate of CTA is between $10000$ and $20000$ events per second depending on deployment \citep{trigger}, the requirement for the real-time processing system is to be able to analyse such a thoughput of data. 
-The right Figure~\ref{fig:dist-frameworks} presents the evaluation of an examplary CTA pipeline executed on top of Flink.
-For this test a machine with $24$ physical CPU cores and $128$ Gigabytes of RAM was used.
-%The  gure on the left shows the number of events per second versus the number of used CPU cores. 
-The datarate goes up to approximately $14000$ events per second. 
-This shows that it will be possible to completely analyse CTA data with only a few of computers.
-
-%Tuning the Apache Spark framework for fast streaming application is more complicated due to its micro-batch architecture.
-%Hence, we concentrated on Apache Storm\cite{storm} and Apache Flink\cite{flink}. We compare the runtime of Storm, Flink and the streams-framework\cite{streams} in
-%a local setup on a single core to measure the impact of the overhead these frameworks produce.
-%The results can be seen on the image on the left.
-%There is no clear preference between Storm and Flink when it comes to runtime overhead. We chose to continue our experiments on
-%Apache Flink due to easier setup, better visualization tools and a more comfortable abstraction compared to the rather low-level
-%API of Apache Storm.
-
-\articlefiguretwo{P6-42_f4.eps}{P6-42_f3.eps}{fig:dist-frameworks}{\emph{Left:} Overhead produced by distributed processing frameworks. 
-\emph{Right:} Throughput of CTA analysis pipeline executed on multiple cores.}
+\articlefiguretwo{P6-42_f1.eps}{P6-42_f7.eps}{fig:image}{\emph{Left:} A typical image as recorded by an IACT camera.
+Entry windows for pixels on IACT cameras are typically hexagonal.
+\emph{Right:} An image of accumulated simulated gamma-ray events from an astrophysical source as seen by this analysis.}
 
 
 \section{Machine Learning Performance}
 
-
 Supervised machine learning is used to separate signal from background and to estimate the energy of a recorded event.
 Features for classification/regression are calculated from raw input images.
 Simulated, labeled, data is used to train the models using the Python machine learning library scikit-learn \citep{sklearn}.
-Here we trained a Random Forest classifier with 200 trees on simulated data to separate signal events from background events. 
-%We trained an ensemble of 200 trees on simulated data. 
-The trained model is then applied to each single telescope in the data stream. 
+Here we trained a Random Forest classifier with 200 trees on simulated data to separate signal events from background events.
+
+The trained model is then applied to each image from the telescopes in the data stream.
 Figure~\ref{fig:machine-learning-perf} presents the results of the model application.
-The plot on the left shows the performance of background suppression for a single telescope of various types.
+The plot on the left shows the performance of background suppression for the three different telescope types.
 The predictions for each telescope are then averaged to get a combined prediction for the entire event.
-This improves background rejection of CTA significantly as shown in the right image.
+This improves background rejection significantly as shown in the right image.
 
-\articlefiguretwo{P6-42_f5.eps}{P6-42_f6.eps}{fig:machine-learning-perf}{\emph{Left:} Performance of background suppression for a single 
-telescope.
-\emph{Right:} Improved background suppression of a combined predictor.}
+\articlefiguretwo{P6-42_f5.eps}{P6-42_f6.eps}{fig:machine-learning-perf}{\emph{Left:} Performance of background suppression for the
+different telescope types. The small size telescope (SST), the mid size telescope (MST) and the large size telescope (LST).
+\emph{Right:} Improved background suppression of a combined predictor when averaring the predictions for all single telescope in
+a CTA event.}
 
 
+\section{Runtime Performance}
+
+
+Frameworks for distributed stream processing such as Apache Storm \citep{storm}, Apache Flink \citep{flink} or Apache Spark \citep{spark}
+allow for workload distribution with fault tolerance and high availability mechanisms to recover from hardware or network failures.
+Tuning Apache Spark for fast streaming applications is more complicated due to its micro-batch architecture.
+We compare the runtime of Storm and Flink on a single core to measure the impact of the overhead these frameworks produce.
+To share a single code base while executing on different streaming engines we employ the streams-framework \citep{streams}
+as an abstraction layer.
+This way the analysis pipeline is only defined once, but can be easily executed on top of different distributed streaming engines.
+The left image in Figure~\ref{fig:dist-frameworks} shows that Flink shows less runtime overhead compared to Storm.
+
+We continue our experiments on Flink due to faster processing, easier setup and a more comfortable high-level API compared to Storm.
+Any real-time processing system for CTA has to be able to handle the data rate of $20000$ events per second and provide analysis results
+within 30 seconds according to the official CTA requirements.
+
+The right Figure~\ref{fig:dist-frameworks} presents the evaluation of a full CTA pipeline executed on top of Flink.
+For this test a machine with $24$ physical CPU cores was used.
+%The  gure on the left shows the number of events per second versus the number of used CPU cores.
+The datarate goes up to approximately $14000$ events per second on this single machine with 24 cores.
+To reach the requested 20000 events per second
+
+TODO: show flink results in some nice way. Maybe even rate vs time or so. Maybe redo all tests because of changes from streams to jayct? dont know yet.
+% This shows that it will be possible to completely analyse CTA data with only a few of computers.
+
+\articlefiguretwo{P6-42_f4.eps}{P6-42_f3.eps}{fig:dist-frameworks}{\emph{Left:} Overhead produced by distributed processing frameworks.
+\emph{Right:} Throughput of CTA analysis pipeline executed on multiple cores.}
 
 
 \bibliography{P6-42}
