@@ -52,6 +52,7 @@ def main(gammas, protons, output_file):
     plt.tight_layout()
     # b = plt.colorbar()
     # b.set_label('Events')
+    plt.grid('off')
     plt.savefig(output_file)
 
 

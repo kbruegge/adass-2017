@@ -40,16 +40,16 @@
 % authors share an affiliation this should be in a single \affil which can then
 % be referenced for several author names.
 % See ManuscriptInstructions.pdf and ASPmanual2010.pdf 3.1.4 for more details
-\author{Kai Br\"ugge$^1$, Alexey Egorov$^2$, Katharina Morik$^2$ and Wolfgang Rhode$^2$}
-\affil{$^1$TU Dortmund, Dortmund, Germany; \email{kai.bruegge@tu-dortmund.de}}
-\affil{$^2$TU Dortmund, Dortmund, Germany; \email{firstname.lastname@tu-dortmund.de}}
+\author{Kai Br\"ugge$^1$, Alexey Egorov$^1$, Christian Bockermann$^1$, Katharina Morik$^1$ and Wolfgang Rhode$^1$}
+\affil{$^1$TU Dortmund, Dortmund, Germany; \newline \email{kai.bruegge@tu-dortmund.de} \newline \email{alexey.egorov@tu-dortmund.de}}
 
 
 % This section is for ADS Processing.  There must be one line per author.
-\paperauthor{Kai~Br\"ugge}{kai.bruegge@tu-dortmund.de}{}{TU Dortmund}{Experimental Physics 5}{Dortmund}{NRW}{44227}{Germany}
+\paperauthor{Kai~Br\"ugge}{kai.bruegge@tu-dortmund.de}{}{TU Dortmund}{Astroparticle Physics}{Dortmund}{NRW}{44227}{Germany}
 \paperauthor{Alexey~Egorov}{alexey.egorov@tu-dortmund.de}{}{TU Dortmund}{Artificial Intelligence Group}{Dortmund}{NRW}{44227}{Germany}
+\paperauthor{Christian~Bockermann}{christian.bockermann@tu-dortmund.de}{}{TU Dortmund}{Artificial Intelligence Group}{Dortmund}{NRW}{44227}{Germany}
 \paperauthor{Katharina~Morik}{katharina.morik@tu-dortmund.de}{}{TU Dortmund}{Artificial Intelligence Group}{Dortmund}{NRW}{44227}{Germany}
-\paperauthor{Wolfgang~Rhode}{wolfgang.rhode@tu-dortmund.de}{}{TU Dortmund}{Experimental Physics 5}{Dortmund}{NRW}{44227}{Germany}
+\paperauthor{Wolfgang~Rhode}{wolfgang.rhode@tu-dortmund.de}{}{TU Dortmund}{Astroparticle Physics}{Dortmund}{NRW}{44227}{Germany}
 
 
 \begin{abstract}
@@ -87,27 +87,24 @@ To gain more understanding about the physics working in GRBs and AGN it is vital
 In case a GRB is detected,  CTA can alert other experiments to trigger observations in other wavelengths bands.
 The data aquisition system will supply the real time analysis (RTA) with calibrated images of each triggered telescope.
 Features for classication/regression are calculated on each image in the triggered events.
-Simulated and labeled data is used to train the models using the Python machine learning library scikit-learn~\citep{sklearn}.
+Simulated and labeled data is used to train the models using the Python machine learning library \texttt{scikit-learn}~\citep{sklearn}.
 These models are then used for filtering of comsic ray showers and estimation of primary particle energy.
-The trained scikit-learn models are converted into the PMML~\citep{pmml} format using the sklearn2pmml~\citep{sklearn2pmml} library.
+The trained \texttt{scikit-learn} models are converted into the PMML~\citep{pmml} format using the \texttt{sklearn2pmml}~\citep{sklearn2pmml} library.
 This way the stored model can be shared between programming languages and applied to the data stream from the telescopes.
 
 The expected event rate of CTA will be between $10000$ and $20000$ events per second depending on deployment
 and pointing direction~\citep{trigger}. Every real time processing system for CTA data will have to handle that data rate.
-% The official CTA requirements for the real time analysis define a maximum allowed delay of 30 seconds between input of the data
-% and the output of the result.
 
-\articlefiguretwo{P6-42_f1.eps}{P6-42_f7.eps}{fig:image}{\emph{Left:} A typical image as recorded by an IACT camera.
-Entry windows for pixels on IACT cameras are typically hexagonal.
-\emph{Right:} An image of accumulated simulated gamma-ray events from an astrophysical source as seen by this analysis.}
+
+\articlefigure{P6-63_f1.eps}{fig:overview}{Overview of the analysis process. We use \texttt{scikit-learn} to train
+models on simulated data and apply these models to the data stream coming from the telescopes to get results in near real time.}
 
 
 \section{Machine Learning Performance}
 
 Supervised machine learning is used to separate signal from background and to estimate the energy of a recorded event.
 Features for classification/regression are calculated from raw input images.
-Simulated, labeled, data is used to train the models using the Python machine learning library scikit-learn \citep{sklearn}.
-Here we trained a Random Forest classifier with 200 trees on simulated data to separate signal events from background events.
+We trained a Random-Forest~\citep{rf} classifier with 200 trees on simulated data to separate signal events from background events.
 
 The trained model is then applied to each image from the telescopes in the data stream.
 Figure~\ref{fig:machine-learning-perf} presents the results of the model application.
@@ -115,20 +112,23 @@ The plot on the left shows the performance of background suppression for the thr
 The predictions for each telescope are then averaged to get a combined prediction for the entire event.
 This improves background rejection significantly as shown in the right image.
 
-\articlefiguretwo{P6-42_f5.eps}{P6-42_f6.eps}{fig:machine-learning-perf}{\emph{Left:} Performance of background suppression for the
+Energy estimation is performed in a similar manner. A Random Regression Forest is trained on the same simulated data.
+The resulting model is then applied to the data stream and predictions are averaged for all images in a single event.
+
+\articlefiguretwo{P6-63_f2.eps}{P6-63_f3.eps}{fig:machine-learning-perf}{\emph{Left:} Performance of background suppression for the
 different telescope types. The small size telescope (SST), the mid size telescope (MST) and the large size telescope (LST).
-\emph{Right:} Improved background suppression of a combined predictor when averaring the predictions for all single telescope in
+\emph{Right:} Improved background suppression of a combined predictor when averaging the predictions for all telescopes in
 a CTA event.}
 
 
 \section{Runtime Performance}
 
 
-Frameworks for distributed stream processing such as Apache Storm \citep{storm}, Apache Flink \citep{flink} or Apache Spark \citep{spark}
+Frameworks for distributed stream processing such as Apache Storm \citep{storm} or Apache Flink \citep{flink}
 allow for workload distribution with fault tolerance and high availability mechanisms to recover from hardware or network failures.
 Tuning Apache Spark for fast streaming applications is more complicated due to its micro-batch architecture.
 We compare the runtime of Storm and Flink on a single core to measure the impact of the overhead these frameworks produce.
-To share a single code base while executing on different streaming engines we employ the streams-framework \citep{streams}
+To share a single code base while executing on different streaming engines we employ the \texttt{streams-framework}~\citep{streams}
 as an abstraction layer.
 This way the analysis pipeline is only defined once, but can be easily executed on top of different distributed streaming engines.
 The left image in Figure~\ref{fig:dist-frameworks} shows that Flink shows less runtime overhead compared to Storm.
@@ -139,17 +139,15 @@ within 30 seconds according to the official CTA requirements.
 
 The right Figure~\ref{fig:dist-frameworks} presents the evaluation of a full CTA pipeline executed on top of Flink.
 For this test a machine with $24$ physical CPU cores was used.
-%The  gure on the left shows the number of events per second versus the number of used CPU cores.
 The datarate goes up to approximately $14000$ events per second on this single machine.
-To reach the requested 20000 events per second
+We use a simple self hosted Flink cluster on two machines with 24 cores each to scale the process up.
+This way event rates of more than $20 000$ events per second are achieved.
 
-TODO: show flink results in some nice way. Maybe even rate vs time or so. Maybe redo all tests because of changes from streams to jayct? dont know yet.
-% This shows that it will be possible to completely analyse CTA data with only a few of computers.
-
-\articlefiguretwo{P6-42_f4.eps}{P6-42_f3.eps}{fig:dist-frameworks}{\emph{Left:} Overhead produced by distributed processing frameworks.
+\articlefiguretwo{P6-63_f4.eps}{P6-63_f5.eps}{fig:dist-frameworks}{\emph{Left:} Overhead produced by distributed processing frameworks.
 \emph{Right:} Throughput of CTA analysis pipeline executed on multiple cores.}
 
+\acknowledgements Part of this work is supported by Deutsche Forschungsgemeinschaft (DFG) within the Collaborative Research Center SFB 876 "Providing Information by Resource-Constrained Analysis", project C3.
 
-\bibliography{P6-42}
+\bibliography{P6-63}
 
 \end{document}
