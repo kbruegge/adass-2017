@@ -55,15 +55,15 @@
 \begin{abstract}
 
   Once completed, the  Cherenkov Telescope Array (CTA) will be able to map the gamma-ray sky in a wide energy range from several tens of GeV to some hundreds of TeV and will be more sensitive than previous experiments by an order of magnitude.
-  It opens up the opportunity to observe transient phenomena like gamma-ray bursts (GRBs) and flaring active galactic nuclei (AGN).  In order to successfully trigger multi-wavelengths observations of transients, CTA has to be able to alert other observatories as quickly as possible.  Multi wavelength observations are essential for gaining insights into the processes occurring within these sources of such high energy radiation.
+  It opens up the opportunity to observe transient phenomena like gamma-ray bursts (GRBs) and flaring active galactic nuclei (AGN).  In order to successfully trigger multi-wavelength observations of transients, CTA has to be able to alert other observatories as quickly as possible.  Multi-wavelength observations are essential for gaining insights into the processes occurring within these sources of such high energy radiation.
 
   CTA will consist of approximately 100 telescopes of different sizes and designs.
   Images are streamed from all the telescopes into a central computing facility on site.
   During observation CTA will produce a stream of up to 20 000 images per second. Noise suppression and feature extraction algorithms are applied to each image in the stream as well as previously trained machine learning models.
   Restricted computing power of a single machine and the limits of network's data transfer rates become a bottleneck for stream processing systems in a traditional single-machine setting.
   We explore several different distributed streaming technologies from the Apache Big-Data eco-system like Spark, Flink, Storm to handle the large amount of data coming from the telescopes.
-  To share a single code base while executing on different streaming engines we employ  abstraction layers such as the streams-framework and the Apache Beam project.
-  These use  a high level language to build up processing pipelines that can transformed into native the pipelines of the different platforms.
+  To share a single code base while executing on different streaming engines we employ  abstraction layers such as the streams-framework.
+  These use  a high level language to build up processing pipelines that can transformed into the native pipelines of the different platforms.
   Here we present results of our investigation and show a first prototype capable of analyzing CTA data in real-time.
 
 \end{abstract}
@@ -83,8 +83,8 @@ Filtering air showers produced by cosmic rays while keeping those produced by ga
 
 One of CTA's main goals is monitoring the sky for transient events.
 These include Gamma-Ray Burst (GRBs) events and Active Galactic Nuclei (AGNs).
-To gain more understanding about the physics working in GRBs and AGN it is vital to perform multi-wavelengths observations.
-In case a GRB is detected,  CTA can alert other experiments to trigger observations in other wavelengths bands.
+To gain more understanding about the physics working in GRBs and AGN it is vital to perform multi-wavelength observations.
+In case a GRB is detected,  CTA can alert other experiments to trigger observations in other wavelength bands.
 The data aquisition system will supply the real time analysis (RTA) with calibrated images of each triggered telescope.
 Features for classication/regression are calculated on each image in the triggered events.
 Simulated and labeled data is used to train the models using the Python machine learning library \texttt{scikit-learn}~\citep{sklearn}.
@@ -134,7 +134,7 @@ This way the analysis pipeline is only defined once, but can be easily executed 
 The left image in Figure~\ref{fig:dist-frameworks} shows that Flink shows less runtime overhead compared to Storm.
 
 We continue our experiments on Flink due to faster processing, easier setup and a more comfortable high-level API compared to Storm.
-Any real-time processing system for CTA has to be able to handle the data rate of $20000$ events per second and provide analysis results
+Any real-time processing system for CTA has to be able to handle the data rate of up to $20000$ events per second and provide analysis results
 within 30 seconds according to the official CTA requirements.
 
 The right Figure~\ref{fig:dist-frameworks} presents the evaluation of a full CTA pipeline executed on top of Flink.

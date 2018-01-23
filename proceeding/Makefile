@@ -10,9 +10,9 @@ texoptions = -pdf \
 
 texinputs=TEXINPUTS=.:../../common:
 
-all: build/P6-63_v2.zip
+all: build/P6-63_v3.zip
 
-build/P6-63_v2.zip: FORCE P6-63_f1.eps P6-63_f2.eps P6-63_f3.eps P6-63_f4.eps P6-63_f5.eps
+build/P6-63.pdf: FORCE P6-63_f1.eps P6-63_f2.eps P6-63_f3.eps P6-63_f4.eps P6-63_f5.eps
 	$(texinputs) $(bibinputs) latexmk $(texoptions) P6-63.tex
 
 # this compiles the proceeding, opens a pdf viewer and
@@ -20,10 +20,10 @@ build/P6-63_v2.zip: FORCE P6-63_f1.eps P6-63_f2.eps P6-63_f3.eps P6-63_f4.eps P6
 preview: FORCE
 	$(texinputs) $(bibinputs) latexmk $(texoptions) -pvc P6-63.tex
 
-build/P6-63_v2.zip: build/P6-63.pdf P6-63.bib P6-63.tex
+build/P6-63_v3.zip: build/P6-63.pdf P6-63.bib P6-63.tex
 	mkdir -p build/P6-63
 	cp P6-63.tex build/P6-63.pdf copyrightform.pdf *.eps build/P6-63
-	cd build && zip -r P6-63_v2.zip P6-63/
+	cd build && zip -r P6-63_v3.zip P6-63/
 
 P6-63_f1.eps: adass_overview.pdf
 	pdftops adass_overview.pdf P6-63_f1.eps
