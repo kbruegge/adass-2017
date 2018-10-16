@@ -1,4 +1,4 @@
-PYTHON = python
+PYTHON = python3
 rta_predictions_protons = ../data/predictions_rta_protons_test_sample.csv
 rta_predictions_gammas = ../data/predictions_rta_gammas_test_sample.csv
 
