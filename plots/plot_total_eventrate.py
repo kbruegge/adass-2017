@@ -26,7 +26,7 @@ def main(input_files, output_file):
 
         for n, g in df.groupby('copy_id'):
             # remove first row. its an outlier
-            result[n] = g['@datarate'].values[1:]
+            result[n] = g['@datarate'].values[4:]
 
         total_datarates['{}'.format(n_threads)] = result.sum(axis=1)
 
@@ -35,8 +35,8 @@ def main(input_files, output_file):
     sorted_columns = natsorted(total_datarates.columns)[0:24]
     total_datarates = total_datarates.reindex_axis(sorted_columns, axis=1)
 
-    sns.set_style('darkgrid')
-    ax = sns.violinplot(data=total_datarates, linewidth=0.6, inner=None, scale='width')
+    # sns.set_style('darkgrid')
+    ax = sns.stripplot(data=total_datarates, color='#348ABD', size=4.0, jitter=0.02)
     # ax.set_xlim([-1, 49])
     major_ticks = np.arange(3, 26, 4)
     minor_ticks = np.arange(0, 26, 1)

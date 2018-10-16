@@ -6,13 +6,13 @@ text.usetex: true
 font.sans-serif:
 
 patch.linewidth: 0.4
-patch.facecolor: 348ABD  # blue
-patch.edgecolor: EEEEEE
+patch.facecolor: 348ABD  #348ABD
+patch.edgecolor: ececec #ececec
 patch.antialiased: True
 
 font.size: 14.0
 
-axes.facecolor: E5E5E5
+axes.facecolor: ececec #ececec
 axes.edgecolor: white
 axes.linewidth: 0.8
 axes.grid: True
@@ -41,7 +41,7 @@ grid.linewidth: 0.4
 grid.alpha: 0.4
 grid.linestyle: -    # solid line
 
-figure.facecolor: f5f5f5
+figure.facecolor: ececec #ececec
 figure.edgecolor: 0.50
 
 
